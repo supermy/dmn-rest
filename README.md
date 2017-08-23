@@ -1,6 +1,6 @@
 # 决策表引擎 dmn-engine
 
-[![Build Status](https://travis-ci.org/supermy/rocksdb-service.svg?branch=master)](https://github.com/supermy/rocksdb-service)
+[![Build Status](https://travis-ci.org/supermy/dmn-rest.svg?branch=master)](https://github.com/supermy/dmn-rest)
 
 ## 简介 
 * 决策表引擎dmn engine；rest api 方式提供服务； 通过集群提升 QPS 能力。
