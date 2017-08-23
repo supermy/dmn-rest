@@ -1,0 +1,170 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+
+  <parent>
+    <groupId>org.camunda</groupId>
+    <artifactId>camunda-release-parent</artifactId>
+    <version>2.5</version>
+    <!-- DO NOT REMOVE EMPTY TAG https://issues.apache.org/jira/browse/MNG-4687 -->
+    <relativePath />
+  </parent>
+
+  <groupId>org.camunda.dmn.springboot</groupId>
+  <artifactId>dmn-rest</artifactId>
+
+  <properties>
+    <spring-boot.version>1.5.6.RELEASE</spring-boot.version>
+    <camunda.version>7.7.0</camunda.version>
+
+    <version.java>1.8</version.java>
+    <java.version>${version.java}</java.version>
+    <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
+    <!-- disable javadoc linter for JDK8 to not fail on incomplete javadoc -->
+    <additionalparam>-Xdoclint:none</additionalparam>
+    <dmn.version>2.3.0-SNAPSHOT</dmn.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <!-- Import dependency management from Spring Boot -->
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.camunda.bpm.extension.springboot</groupId>
+        <artifactId>camunda-bpm-spring-boot-starter-bom</artifactId>
+        <version>${dmn.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.camunda.bpm.extension.springboot</groupId>
+      <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+      <version>${dmn.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.camunda.bpm.extension.springboot</groupId>
+      <artifactId>camunda-bpm-spring-boot-starter-test</artifactId>
+      <version>${dmn.version}</version>
+
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <configuration>
+            <archive>
+              <manifest>
+                <addDefaultImplementationEntries />
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+        <!-- set version for spring-boot-maven-plugin because we use the
+          spring-boot-parent only in dependencyManagement section, not as parent. -->
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${spring-boot.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.18.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <configuration>
+          <rules>
+            <requireJavaVersion>
+              <version>[1.8,)</version>
+            </requireJavaVersion>
+          </rules>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <layout>ZIP</layout>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <repositories>
+    <repository>
+      <id>camunda.com.public</id>
+      <name>Camunda Repository</name>
+      <url>https://app.camunda.com/nexus/content/groups/public</url>
+    </repository>
+  </repositories>
+
+</project>
