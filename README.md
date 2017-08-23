@@ -36,6 +36,8 @@
 
 ```
 
+mvn spring-boot:run
+
 curl -i -X POST -H 'Cookie: JSESSIONID=kjcddrwwo1zo1ejsx4bbmek0u' -H 'Connection: keep-alive' -F "data=@/服务器文件路径/example-dmn-rest/target/classes/dmn/decision-model.dmn;tenant-id=1;deployment-source=process-application;deployment-name=abc" http://127.0.0.1:8080/rest/deployment/create
 
 ```
@@ -95,6 +97,29 @@ curl -i -X POST -H 'Cookie: JSESSIONID=kjcddrwwo1zo1ejsx4bbmek0u' -H 'Connection
     
 ```
 
+## 数据库配置，如测试使用，可注销数据库配置，默认使用 h2嵌入式数据库
+
+```
+
+    camunda.bpm:
+      metrics.enabled: false
+      history-level: auto
+      database:
+        schema-update: true
+        type: mysql
+    
+    spring.datasource:
+      url: jdbc:mysql://localhost:3306/camunda?useSSL=false
+      username: camunda
+      password: camunda
+      driver-class-name: com.mysql.jdbc.Driver
+    
+    server:
+      port: 8081
+     
+```
+
+  
 ## 配合 dmn-js 实现 可视化编辑规则，进行决策表编辑，及时发布；所见及所得；
 
 ```
