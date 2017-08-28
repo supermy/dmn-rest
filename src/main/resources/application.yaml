@@ -13,3 +13,11 @@
 #
 #server:
 #  port: 8081
+
+#dmn决策资源路径 todo save to redis
+logviewer.path: /Users/moyong/project/env-rule/dmn-rest/src/main/resources/dmn
+
+spring.datasource.testOnBorrow: true
+spring.datasource.validationQuery: SELECT 1
+
+

@@ -23,6 +23,16 @@
     <!-- disable javadoc linter for JDK8 to not fail on incomplete javadoc -->
     <additionalparam>-Xdoclint:none</additionalparam>
     <dmn.version>2.3.0-SNAPSHOT</dmn.version>
+
+
+    <!-- Webjars dependencies -->
+    <webjars-bootstrap.version>3.3.4</webjars-bootstrap.version>
+    <webjars-extjs.version>4.2.1.883-1</webjars-extjs.version>
+    <webjars-jquery.version>2.1.4</webjars-jquery.version>
+
+    <jackson.version>1.9.13</jackson.version>
+
+
   </properties>
 
   <dependencyManagement>
@@ -47,6 +57,42 @@
   </dependencyManagement>
 
   <dependencies>
+    <!--<dependency>-->
+      <!--<groupId>org.springframework.boot</groupId>-->
+      <!--<artifactId>spring-boot-starter-data-rest</artifactId>-->
+    <!--</dependency>-->
+
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-core-asl</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <!-- 消费者 -->
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>extjs</artifactId>
+      <version>${webjars-extjs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>bootstrap</artifactId>
+      <version>${webjars-bootstrap.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery</artifactId>
+      <version>${webjars-jquery.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.camunda.bpm.extension.springboot</groupId>
