@@ -42,6 +42,16 @@ Ext.define('LogViewer.controller.Viewport', {
             logUrl = Ext.String.urlAppend('/logviewer/open', 'fileName='+fileName);
             cleanName = fileName.replace(/\W/g, '')
             Ext.log('open [' + logUrl + '] name [' + cleanName + ']');
+            // window.location = logUrl;
+            window.open(logUrl,'_blank');
+            //是先到后台将要导出或者下载的数据 准备后，并将文件路径传到 前台，然后再指向该路径
+            // Ext.Ajax.request({
+            //     url:logUrl,
+            //     success:function(res){
+            //         var obj =Ext.decode(res.responseText);
+            //         window.location.href =obj.path;
+            //     }
+            // });
         }
     },
 
@@ -63,19 +73,30 @@ Ext.define('LogViewer.controller.Viewport', {
     },
 
     onDownload : function(fileName) {
-        Ext.log("Exporting to Excel");
+        Ext.log("Exporting to file:"+fileName);
 
         var frame, form, hidden, params, url;
 
-        frame = Ext.fly('exportframe').dom;
-        frame.src = Ext.SSL_SECURE_URL;
+        //frame = Ext.fly('exportframe').dom;
+        //frame.src = Ext.SSL_SECURE_URL;
 
         form = Ext.fly('exportform').dom;
-        url = '../util/htmlresponse.json';
-        form.action = url;
+
+        //url = Ext.String.urlAppend('/logviewer/download', 'fileName='+fileName);
+        //cleanName = fileName.replace(/\W/g, '')
+        //Ext.log('download [' + url + '] name [' + cleanName + ']');
+        //url = '../util/htmlresponse.json';
+        //Ext.log(url)
+
+        form.action = '/logviewer/download';
+
+        //数据要么走 url 要么走 hidden
         hidden = document.getElementById('excelconfig');
         params = {fileName: fileName};
         hidden.value = Ext.encode(fileName);
+        // Ext.log(fileName);
+
+        // hidden.value = fileName;
 
         form.submit();
     },

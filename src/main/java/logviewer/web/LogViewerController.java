@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +68,10 @@ public class LogViewerController {
     public void openFile(HttpServletRequest request, HttpServletResponse response,
                          @RequestParam("fileName") String fileName) {
         try {
+
             File file = logViewerService.getFile(fileName);
+
+
             byte[] content = new byte[(int) file.length()];
             response.setContentType("text/plain");
             response.addHeader("content-disposition", "inline;filename=" + fileName);
@@ -90,7 +96,19 @@ public class LogViewerController {
     public void downloadFile(HttpServletRequest request, HttpServletResponse response,
                              @RequestParam("fileName") String fileName) {
         try {
-            File file = logViewerService.getFile(fileName);
+
+            System.out.println("============");
+            System.out.println(fileName);
+            System.out.println("============");
+
+            String[] name=fileName.split(",");
+
+
+            File file = logViewerService.getFile(name[0].replace("\"",""));
+
+            log.debug(file.getName());
+            log.debug(file.exists());
+
             byte[] content = new byte[(int) file.length()];
             response.setContentType("application/octet-stream");
             response.setHeader("Content-Disposition", "attachment;filename=" + fileName);

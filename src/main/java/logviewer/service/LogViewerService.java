@@ -120,7 +120,7 @@ public class LogViewerService {
      * @return file found
      */
     public File getFile(String fileName) {
-        File file = new File(logDir + "\\" + fileName);
+        File file = new File(logDir + "/" + fileName);
         return file;
     }
 

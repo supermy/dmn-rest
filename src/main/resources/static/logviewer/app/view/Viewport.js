@@ -29,7 +29,7 @@ Ext.define('LogViewer.view.Viewport', {
             {
                 flex: 1,
                 itemId: 'fileTree',
-                title: 'Logs',
+                title: '规则文件列表',
                 xtype: 'treepanel',
                 store: 'Files',
                 autoScroll: true,
@@ -39,7 +39,7 @@ Ext.define('LogViewer.view.Viewport', {
                     {xtype: 'treecolumn', text: 'Name', dataIndex: 'fileName', flex:2},
                     {text: 'Size', dataIndex: 'fileSize', flex:1},
                     {text: 'Last Modified', dataIndex: 'fileDate',  xtype: 'datecolumn', format:'Y-m-d\\TH:i:s', flex: 1},
-                    {xtype: 'actioncolumn', icon: '../resources/images/icons/filebrowser.png', tooltip: 'Download', getClass: this.actionItemRenderer}
+                    {xtype: 'actioncolumn', icon: 'icons/filebrowser.png', tooltip: 'Download', getClass: this.actionItemRenderer}
                 ],
                 tools:[{
                     itemId: 'refreshTool',

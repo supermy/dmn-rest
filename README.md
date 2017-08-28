@@ -27,7 +27,9 @@
 *  后台由关系 DB 支撑，需要 DB 集群与 WEB 集群提升 QPS 能力    
 
 
+## 决策列表
 
+    http://127.0.0.1:8080/file-browser.html
 
 
 
@@ -48,7 +50,7 @@ curl -i -X POST -H 'Cookie: JSESSIONID=kjcddrwwo1zo1ejsx4bbmek0u' -H 'Connection
 
 ```
 
-curl -i -X POST -H 'Cookie: JSESSIONID=kjcddrwwo1zo1ejsx4bbmek0u' -H 'Connection: keep-alive ;Content-Type:application/jsons' http://127.0.0.1:8080/rest/engine/default/decision-definition/key/checkOrder/evaluate
+curl -i -X POST -H 'Cookie: JSESSIONID=kjcddrwwo1zo1ejsx4bbmek0u' -H 'Connection: keep-alive ;Content-Type:application/jsons' http://127.0.0.1:8080/rest/engine/default/rest/decision-definition/key/checkOrder/evaluate
         -d "{"variables" : 
               {"status" : { "value" : "silver", "type" : "String" },
               "sum" : { "value" : 900, "type" : "Integer" }}
@@ -62,40 +64,40 @@ curl -i -X POST -H 'Cookie: JSESSIONID=kjcddrwwo1zo1ejsx4bbmek0u' -H 'Connection
 
 ```
     决策表列表
-    GET /decision-definition
+    GET /rest/decision-definition
     决策表数量
-    GET /decision-definition/count
+    GET /rest/decision-definition/count
     单个决策表
-    GET /decision-definition/{id} 
+    GET /rest/decision-definition/{id} 
     单个决策表通过 key
-    GET /decision-definition/key/{key} 
+    GET /rest/decision-definition/key/{key} 
     租户
-    GET /decision-definition/key/{key}/tenant-id/{tenant-id}
+    GET /rest/decision-definition/key/{key}/tenant-id/{tenant-id}
     通过 ID 获取XML格式决策表
-    GET /decision-definition/{id}/xml 
+    GET /rest/decision-definition/{id}/xml 
     通过 KEY 获取XML 格式决策表
-    GET /decision-definition/key/{key}/xml 
+    GET /rest/decision-definition/key/{key}/xml 
     获取租户
-    GET /decision-definition/key/{key}/tenant-id/{tenant-id}/xml
+    GET /rest/decision-definition/key/{key}/tenant-id/{tenant-id}/xml
     获取图标描述
-    GET /decision-definition/{id}/diagram 
+    GET /rest/decision-definition/{id}/diagram 
     
-    GET /decision-definition/key/{key}/diagram 
+    GET /rest/decision-definition/key/{key}/diagram 
     
-    GET /decision-definition/key/{key}/tenant-id/{tenant-id}/diagram
+    GET /rest/decision-definition/key/{key}/tenant-id/{tenant-id}/diagram
     启动决策表进程
-    POST /decision-definition/{id}/evaluate 
+    POST /rest/decision-definition/{id}/evaluate 
     启动决策表进程
-    POST /decision-definition/key/{key}/evaluate 
+    POST /rest/decision-definition/key/{key}/evaluate 
     启动决策表进程
-    POST /decision-definition/key/{key}/tenant-id/{tenant-id}/evaluate
+    POST /rest/decision-definition/key/{key}/tenant-id/{tenant-id}/evaluate
     
     Update history time to live
-    PUT /decision-definition/{id}/history-time-to-live 
+    PUT /rest/decision-definition/{id}/history-time-to-live 
     
-    PUT /decision-definition/key/{key}/history-time-to-live 
+    PUT /rest/decision-definition/key/{key}/history-time-to-live 
     
-    PUT /decision-definition/key/{key}/tenant-id/{tenant-id}/history-time-to-live
+    PUT /rest/decision-definition/key/{key}/tenant-id/{tenant-id}/history-time-to-live
     
 ```
 
