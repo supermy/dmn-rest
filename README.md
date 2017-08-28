@@ -40,6 +40,8 @@ mvn spring-boot:run
 
 curl -i -X POST -H 'Cookie: JSESSIONID=kjcddrwwo1zo1ejsx4bbmek0u' -H 'Connection: keep-alive' -F "data=@/服务器文件路径/example-dmn-rest/target/classes/dmn/decision-model.dmn;tenant-id=1;deployment-source=process-application;deployment-name=abc" http://127.0.0.1:8080/rest/deployment/create
 
+curl -i -X POST -H 'Cookie: JSESSIONID=kjcddrwwo1zo1ejsx4bbmek0u' -H 'Connection: keep-alive' -F "data=@/Users/moyong/project/env-rule/dmn-rest/src/main/resources/decision-model.dmn;tenant-id=1;deployment-source=process-application;deployment-name=abc" http://127.0.0.1:8080/rest/deployment/create
+
 ```
 
   执行 dmn table 脚本
