@@ -9,10 +9,13 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -124,4 +127,17 @@ public class LogViewerService {
         return file;
     }
 
+    public boolean save(MultipartFile file) {
+        Path target = Paths.get(logDir,file.getOriginalFilename());
+        System.out.println(target.getFileName());
+        System.out.println(target.getParent());
+        System.out.println(target.getRoot());
+        try {
+            Files.copy(file.getInputStream(), target, StandardCopyOption.REPLACE_EXISTING);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

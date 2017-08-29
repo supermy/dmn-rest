@@ -12,6 +12,9 @@ var container = $('#js-drop-zone');
 
 var downloadLink = $('#js-download-table');
 
+var saveLink = $('#js-save-table');
+
+
 var canvas = $('#js-table');
 
 var renderer = new DmnModeler({
@@ -59,13 +62,12 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
-var xml = getUrlParameter('dmnFileName');
+var dmnxml = getUrlParameter('dmnFileName');
 //获取 url filename 参数，加载 dmn 决策表
-console.log(xml);
+console.log(dmnxml);
 
 var newTableXML = require('../resources/newTable.dmn');
 var exampleXML = require('../resources/di.dmn');
-
 
 function createNewTable() {
   // alert(newTableXML);
@@ -73,6 +75,7 @@ function createNewTable() {
 
   openTable(newTableXML);
 }
+
 function createDemoTable() {
   console.log(exampleXML);
   // alert(exampleXML);
@@ -80,7 +83,7 @@ function createDemoTable() {
 }
 
 function createOpenTable() {
-    $.get(xml, function(result){
+    $.get(dmnxml, function(result){
         console.log(result);
         openTable(result);
     });
@@ -89,6 +92,53 @@ function createOpenTable() {
 downloadLink.on('click', function() {
   originalXML = latestXML;
   dirty = false;
+});
+
+saveLink.on('click', function() {
+    console.log('upload file to server ......');
+    console.log(dmnxml);
+
+    originalXML = latestXML;
+    dirty = false;
+
+    var dmnxml = getUrlParameter('dmnFileName');
+
+    var savefilename=dmnxml.split('=')[1];
+
+    if (savefilename === undefined ){
+      return true;
+    }
+    console.log(savefilename);
+    // return sParameterName[1] === undefined ? true : sParameterName[1];
+
+
+    // Define a boundary, I stole this from IE but you can use any string AFAIK
+    var boundary = '---------------------------7da24f2e50046';
+    var body = '--' + boundary + '\r\n'
+        // Parameter name is "upload" and local filename is "temp.txt"
+        + 'Content-Disposition: form-data; name="upload";'
+        + 'filename="'+savefilename+'"\r\n'
+        // Add the file's mime-type
+        + 'Content-type: plain/text\r\n\r\n'
+        // Add your data:
+        + originalXML + '\r\n'
+        + '--'+ boundary + '--';
+
+    console.log(body);
+
+    $.ajax({
+        contentType: 'multipart/form-data; boundary='+boundary,
+        data: body,
+        type: 'POST',
+        url: '/logviewer/upload',
+        success: function (data, status) {
+            console.log(data);
+            console.log(status);
+        }
+    });
+
+
+
 });
 
 function setEncoded(link, name, data) {
@@ -128,6 +178,14 @@ function openTable(xml) {
         originalXML = xml;
         setEncoded(downloadLink, 'table.dmn', err ? null : xml);
       });
+
+      //提交到后台服务器
+      //   saveToServer(function(err, xml) {
+      //       originalXML = xml;
+      //       setEncoded(saveLink, 'savetable.dmn', err ? null : xml);
+      //   });
+
+
     }
   });
 }
