@@ -43,7 +43,12 @@ Ext.define('LogViewer.controller.Viewport', {
             cleanName = fileName.replace(/\W/g, '')
             Ext.log('open [' + logUrl + '] name [' + cleanName + ']');
             // window.location = logUrl;
-            window.open(logUrl,'_blank');
+
+            //window.open(logUrl,'_blank');
+            var dmnurl = Ext.String.urlAppend('/dmn/index.html', 'dmnFileName='+encodeURIComponent(logUrl));
+            window.open(dmnurl,'_blank');
+
+
             //是先到后台将要导出或者下载的数据 准备后，并将文件路径传到 前台，然后再指向该路径
             // Ext.Ajax.request({
             //     url:logUrl,
